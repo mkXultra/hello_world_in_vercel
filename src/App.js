@@ -1,15 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
 
-const supabase = createClient('YOUR_SUPABASE_URL', 'YOUR_SUPABASE_ANON_KEY');
-
+const supabase = createClient(process.env.REACT_APP_SUPABASE_URL, process.env.REACT_APP_SUPABASE_ANON_KEY);
+console.log("process.env.REACT_APP_SUPABASE_URL", process.env.REACT_APP_SUPABASE_URL);
+console.log("process.env.REACT_APP_SUPABASE_ANON_KEY", process.env.REACT_APP_SUPABASE_ANON_KEY);
 function App() {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
     const fetchMessage = async () => {
       try {
-        const { data, error } = await supabase.functions.invoke('hello-world');
+        // const { data, error } = await supabase.functions.invoke('hello-world');
+        const { data, error } = await supabase.functions.invoke('hello-world', {
+          headers: {
+            'Authorization': `Bearer ${process.env.REACT_APP_SUPABASE_ANON_KEY}`
+          }
+        });
+        console.log("data", data);
         if (error) throw error;
         setMessage(data.message);
       } catch (error) {
