@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
 
 const supabase = createClient(process.env.REACT_APP_SUPABASE_URL, process.env.REACT_APP_SUPABASE_ANON_KEY);
-console.log("process.env.REACT_APP_SUPABASE_URL", process.env.REACT_APP_SUPABASE_URL);
-console.log("process.env.REACT_APP_SUPABASE_ANON_KEY", process.env.REACT_APP_SUPABASE_ANON_KEY);
 function App() {
   const [message, setMessage] = useState('');
 
